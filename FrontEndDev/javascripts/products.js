@@ -1,4 +1,9 @@
-let url = "http://localhost:3000/api/products";
+let url = "http://tjx-tracker.azurewebsites.net/api/products";
+
+
+axios.get(url).then(({data}) => {
+	generateProducts(data);
+});
 
 document.querySelector(".submit-button").addEventListener("click", function () {
 	/*let product = newProductData();
@@ -17,12 +22,36 @@ document.querySelector(".submit-button").addEventListener("click", function () {
 	document.getElementById("newProduct").appendChild(img);
 })
 
-/*document.querySelector("#search-button").addEventListener('click', async(evt) => {
+document.querySelector("#search-button").addEventListener('click', (evt) => {
 	//evt.preventDefault();
 	let search_cat = document.querySelector("#dropdownMenuButton1").value;
 	let search_attr = document.querySelector("#productSearch").value;
-	
-	if (search_cat === "Product ID") {
+
+	if (search_cat){
+	switch (search_cat) {
+		case "Product ID":
+			search_cat = "product_id";
+			break;
+		case "SKU Number":
+			search_cat = "product_sku";
+			break;
+		case "Product Name":
+			search_cat = "product_name";
+			break;
+	}
+
+	if (search_attr){
+		console.log(search_attr);
+		if (search_cat === "product_id") {
+			axios.get(url).then(({data}) => {
+				data.forEach(element => {
+					
+				});
+			})
+		}
+	}
+	}	
+	/*if (search_cat === "Product ID") {
 		const {data:search} = await axios.get(url + `?product_id_like=${search_attr}`);
 		if (search) {
 			
@@ -43,15 +72,10 @@ document.querySelector(".submit-button").addEventListener("click", function () {
 		} else {
 			window.alert("Product not in directory!");
 		}
-	}
+	}*/
 		
-	})*/
+	})
 
-axios.get(url).then(({data}) => {
-
-	let productEntry = generateProducts(data);
-	return productEntry;
-});
 
 function newProductData() {
 	let newProduct = {
