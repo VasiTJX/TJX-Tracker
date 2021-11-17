@@ -54,16 +54,13 @@ document.querySelector("#search-button").addEventListener('click', async (evt) =
 			}
 			generateProducts(newproductSearch);
 		}); 	
-};
-
-	if (search_cat === "product_sku"){
+	} else if (search_cat === "product_sku"){
 		let newproductSearch = [];
 		await axios.get(url).then(({data}) => {
 			data.forEach(element => {
 				if (element[search_cat].includes(search_attr)){
 					newproductSearch.push(element);	
 				}
-				
 			});
 			let removal = document.getElementById("catalogue");
 			while (removal.firstChild){
@@ -71,13 +68,11 @@ document.querySelector("#search-button").addEventListener('click', async (evt) =
 			}
 			generateProducts(newproductSearch);
 		}); 	
-	};
-
-	if (search_cat === "product_name"){
+	} else if (search_cat === "product_name"){
 		let newproductSearch = [];
 		await axios.get(url).then(({data}) => {
 			data.forEach(element => {
-				if (element[search_cat].includes(search_attr)){
+				if (element[search_cat].includes(search_attr.toUpperCase())){
 					newproductSearch.push(element);	
 				}
 				
@@ -91,6 +86,11 @@ document.querySelector("#search-button").addEventListener('click', async (evt) =
 	};
 });
 
+function incorrectInput() {
+	let alerting = document.createElement("h5");
+	alerting.innerHTML = "<strong> Product does not exist </strong>";
+	document.getElementById("catalogue").appendChild(alerting);
+}
 function newProductData() {
 	let newProduct = {
 		productID: document.getElementById("validationID").value,
