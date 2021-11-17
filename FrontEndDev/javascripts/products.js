@@ -6,20 +6,8 @@ axios.get(url).then(({data}) => {
 });
 
 document.querySelector(".submit-button").addEventListener("click", function () {
-	/*let product = newProductData();
-	let newProduct = generateRows(product);
-	document.getElementById("products-body").append(...newProduct);
-	document.querySelector("table").hidden = false;*/
-
-	let zone = document.createElement("div");
-	zone.classList.add("box", "zone");
-	zone.setAttribute("id", "newProduct");
-	document.getElementById("newDiv").appendChild(zone);
-
-	let img = document.createElement("img");
-	img.src = "../Order Tracker logo.png";
-	img.setAttribute("alt", "Product");
-	document.getElementById("newProduct").appendChild(img);
+	document.getElementById("")
+	
 })
 
 document.querySelector("#search-button").addEventListener('click', async (evt) => {
@@ -86,11 +74,7 @@ document.querySelector("#search-button").addEventListener('click', async (evt) =
 	};
 });
 
-function incorrectInput() {
-	let alerting = document.createElement("h5");
-	alerting.innerHTML = "<strong> Product does not exist </strong>";
-	document.getElementById("catalogue").appendChild(alerting);
-}
+
 function newProductData() {
 	let newProduct = {
 		productID: document.getElementById("validationID").value,
