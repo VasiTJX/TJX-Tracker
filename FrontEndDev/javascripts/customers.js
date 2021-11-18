@@ -1,12 +1,27 @@
 let customerId = undefined;
-let url = "http://tjx-tracker.azurewebsites.net/api/customers"
+let url = "http://tjx-tracker.azurewebsites.net/api/customers";
+let customerTable = undefined;
 // Using axios make a call to the API and get the customers information and render it in the table
 // NOTE: after first deployement of the backEnd server URI can be changed to the public one
-axios.get(url).then(({ data }) => {
-  let customerRows = generateRows(data);
-  console.log(data);
-  document.getElementById("tableBody").replaceChildren(...customerRows);
+
+$(document).ready(function () {
+  let table = $("#customerTable").DataTable({
+    "ordering": false,
+    "searching":false
+  });
+
+  axios.get(url).then(({ data }) => {
+    generateRows(data, table);
+    table.draw();
+  });
+  customerTable = table;
 });
+
+// axios.get(url).then(({ data }) => {
+//   let customerRows = generateRows(data);
+//   console.log(customerRows);
+//   document.getElementById("tableBody").replaceChildren(...customerRows);
+// });
 
 function dropdownmenuSet(val) {
   if (val.innerHTML != "") {
@@ -18,13 +33,13 @@ function dropdownmenuSet(val) {
   }
 }
 
-
 /**
  * This function takes a json object containing information about a customer and trasforms it into HTML rows
  * @param  customers  , a json object containing information about customers
  * @returns returns HTML rows for the customers Table
  */
-function generateRows(customers) {
+function generateRows(customers, table) {
+  table.clear();
   let rows = customers.map((customer) => {
     let adress =
       customer.street +
@@ -34,24 +49,35 @@ function generateRows(customers) {
       customer.zip_code +
       ";" +
       customer.country;
-    let row = document.createElement("tr");
-    row.insertAdjacentHTML(
-      "beforeend",
-      `
-      <td>${customer.customer_id}</td>
-      <td>${customer.first_name}</td>
-      <td>${customer.middle_name}</td>
-      <td>${customer.last_name}</td>
-      <td class="prefix">${customer.phone_country_code}</td>
-      <td>${customer.phone}</td>
-      <td>${customer.email}</td>
-      <td class="ellipsis">${customer.customer_notes}</td>
-      <td class="ellipsis">${adress}</td>
-      `
-    );
-    return row;
+    // let row = document.createElement("tr");
+    // row.insertAdjacentHTML(
+    //   "beforeend",
+    //   `
+    //   <td>${customer.customer_id}</td>
+    //   <td>${customer.first_name}</td>
+    //   <td>${customer.middle_name}</td>
+    //   <td>${customer.last_name}</td>
+    //   <td class="prefix">${customer.phone_country_code}</td>
+    //   <td>${customer.phone}</td>
+    //   <td>${customer.email}</td>
+    //   <td class="ellipsis">${customer.customer_notes}</td>
+    //   <td class="ellipsis">${adress}</td>
+    //   `
+    // );
+    // return row;
+    table.row.add([
+      customer.customer_id,
+      customer.first_name,
+      customer.middle_name,
+      customer.last_name,
+      customer.phone_country_code,
+      customer.phone,
+      customer.email,
+      customer.customer_notes,
+      adress,
+    ]);
   });
-  return rows;
+  // return rows;
 }
 
 /**
@@ -70,7 +96,7 @@ function getNewCustomerData(id) {
     middle_name: $("#validationCustom02").val(),
     last_name: $("#validationCustom03").val(),
     phone_country_code: Number($("#validationCustom04").val()),
-    phone:Number($("#validationCustom05").val()),
+    phone: Number($("#validationCustom05").val()),
     email: $("#validationCustom06").val(),
     customer_notes: $("#FormControlTextarea1").val(),
     street: $("#validationCustom07").val(),
@@ -79,47 +105,53 @@ function getNewCustomerData(id) {
     country: $("#validationCustom10").val(),
   };
 
-  
   return customer;
 }
 
-$("#addButton").on("click", () => {
+$("#addButton").on("click", (e) => {
   if ($(".needs-validation")[0].checkValidity()) {
+    e.preventDefault();
     let customer = getNewCustomerData(customerId);
-    if (customer.customer_id === 0){
+    if (customer.customer_id === 0) {
       delete customer.customer_id;
       console.log(customer);
-      axios.post(url,customer).then((res) => {
-        console.log(res);
-      },(err) => {
-        console.log(err);
-      });
-    }
-    else{
+      axios.post(url, customer).then(
+        (res) => {
+          console.log(res);
+          window.location.reload();
+        },
+        (err) => {
+          alert("Something went wrong with your request , please try again.");
+        }
+      );
+    } else {
       let newUrl = url + "/" + customer.customer_id;
       console.log(newUrl);
-      axios.put(newUrl,customer).then((res) => {
-        console.log(res);
-      },(err) => {
-        console.log(err);
-      });
+      axios.put(newUrl, customer).then(
+        (res) => {
+          console.log(res);
+          window.location.reload();
+        },
+        (err) => {
+          alert("Something went wrong with your request , please try again.");
+        }
+      );
     }
   }
 });
-
 
 // When a row on the customer table is clicked get the id and populate the fields
 $("#tableBody").on("click", function (e) {
   console.log("Clicked");
   // Show the fields when an item on the table is cliked
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
   $("#collapseCustomer").collapse("show");
   // Get the row that was clicked and place the information from the table in the fields
   $(e.target)
     .closest("tr")
     .children()
     .each((index, element) => {
-      // Populate all fields with the current information 
+      // Populate all fields with the current information
       if (index === 0) {
         customerId = element.innerHTML;
       } else if (index === 7) {
@@ -148,10 +180,10 @@ $("#tableBody").on("click", function (e) {
     });
 });
 
-$("#search-button").on("click" , () => {
+$("#search-button").on("click", () => {
   let searchOption = $("#dropdownMenuButton1").val();
   if (searchOption) {
-    switch (searchOption){
+    switch (searchOption) {
       case "First Name":
         searchOption = "first_name";
         break;
@@ -167,27 +199,28 @@ $("#search-button").on("click" , () => {
     }
     console.log(searchOption);
     let searchTerm = $("#searchInput").val();
-    if (searchTerm){
+    if (searchTerm) {
       let goodElements = [];
-      if (searchOption !== "phone"){
+      if (searchOption !== "phone") {
         searchTerm = searchTerm.toLowerCase();
       }
       axios.get(url).then(({ data }) => {
-      data.forEach(element => {
-        if (searchOption !== "phone"){
-          if (element[searchOption].toLowerCase().indexOf(searchTerm) !== -1){
-            goodElements.push(element);
-          }}
-        else {
-          if (element[searchOption].toString().indexOf(searchTerm) !== -1){
-            goodElements.push(element);
+        data.forEach((element) => {
+          if (searchOption !== "phone") {
+            if (
+              element[searchOption].toLowerCase().indexOf(searchTerm) !== -1
+            ) {
+              goodElements.push(element);
+            }
+          } else {
+            if (element[searchOption].toString().indexOf(searchTerm) !== -1) {
+              goodElements.push(element);
+            }
           }
-        }
-      });  
-      let customerRows = generateRows(goodElements);
-      console.log(goodElements);
-      document.getElementById("tableBody").replaceChildren(...customerRows);
-});
+        });
+        let customerRows = generateRows(goodElements,customerTable);
+        customerTable.draw();
+      });
     }
   }
 });
@@ -196,7 +229,6 @@ $("#search-button").on("click" , () => {
 $("#collapseCustomer").on("show.bs.collapse", function () {
   $("#colapseButton").html("Click here to hide form");
 });
-
 
 // When the collapse is hidden change the name of the button to the default one
 $("#collapseCustomer").on("hide.bs.collapse", function () {
