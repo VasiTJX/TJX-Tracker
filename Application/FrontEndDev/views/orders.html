@@ -44,6 +44,8 @@
         </nav>
       </div>
 
+
+
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">Order Information</h1>
@@ -132,15 +134,16 @@
       
 
         <div class="p-2">
-          <table class="table table-striped table-hover pointer">
+          <table class="table table-striped table-hover pointer" id = "ordersTable">
             <thead>
               <tr>
                 <th scope="col">Order ID</th>
                 <th>Order Notes</th>
-                <th scope="col">Date and Time</th>
-                <th scope="col">Quantity</th>
                 <th scope="col">Time-stamp</th>
-                <th scope="col">Customer Notes</th>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Customer First Name</th>
+                <th scope="col">Customer Last Name</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody id="tableBody">
@@ -163,6 +166,8 @@
   <script src="../javascripts/jquery.js"></script>
   <script src="../javascripts/orders.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </body>
 
 </html>
