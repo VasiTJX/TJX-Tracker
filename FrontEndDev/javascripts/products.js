@@ -4,14 +4,14 @@ axios.get(url).then(({data}) => {
 	console.log(data);
 	generateProducts(data);
 });
-
+/*
 document.querySelector(".submit-button").addEventListener("click", function () {
 	document.getElementById("")
 	
-})
+})*/
 
 document.querySelector("#search-button").addEventListener('click', async (evt) => {
-	//evt.preventDefault();
+	evt.preventDefault();
 	let search_cat = document.querySelector("#dropdownMenuButton1").value;
 	let search_attr = document.querySelector("#productSearch").value;
 
