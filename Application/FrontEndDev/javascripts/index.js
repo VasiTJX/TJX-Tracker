@@ -1,6 +1,8 @@
+let url = "http://tjx-tracker-dev.azurewebsites.net/csr/login";
 
-// Starter function for login
-// Uses a hard coded credentials (bad practice but used to have a flow)
+
+    // Uses a hard coded credentials (bad practice but used to have a flow)
+
 let usrdb =`[
     {
         "username": "Somali",
@@ -29,6 +31,17 @@ userdb = JSON.parse(usrdb);
 
 $(".submit").on("click" , () => 
 {   
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    axios.post(`${url}`, { email: `${username}`, rep_password: `${password}` }) .then(function (response) { 
+        console.log(response.data); 
+        window.localStorage.setItem('sessionToken', response.data.sessionToken);
+    }) 
+        .catch(function (error) { 
+            console.log(error); 
+        });
+
+            /*
 // Get the value of the fields
 let username = $(".un").val();
 let password = $(".pass").val();
@@ -44,5 +57,5 @@ for (i =0; i < userdb.length; i++){
     alert("You have entered the wrong username or password");
     $(".un").val("");
     $(".pass").val("");
-    }}
+    }}*/
 });

@@ -152,6 +152,11 @@ h5{
       justify-content: flex-end;
   }
 
+  .order-form-row{
+    margin-bottom: 1em;
+    display: flex;
+  }
+
   .submit-button, .reset-button, .add_button, .learnMore, .btn-order-modal{
     cursor: pointer;
     border-radius: 5em;
@@ -198,7 +203,7 @@ h5{
     color: #fff8f8;
     border: 2px solid black;
 }
-#pAmount {
+#pAmount, #order-customer, #orderModalTextArea {
     margin-left: 10px;
 }
 #search-button, #validationImage {

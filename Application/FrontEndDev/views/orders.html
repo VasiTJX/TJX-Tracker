@@ -52,7 +52,9 @@
           <p class="lead">Search and modify existing orders.</p>
         </div>
       </div>
-      <h2> <strong>Order #1234</strong> </h2>
+      <h2> <strong>Add Order</strong> </h2>
+<!-- 
+
 
       <form class="needs-validation" novalidate>
         <div class="form-row">
@@ -69,8 +71,8 @@
             <input type="number" class="form-control" id="validationCustom04" placeholder="Time" required>
             <label for="validationCustom05">Order Price</label>
             <input type="text" class="form-control" id="validationCustom05" placeholder="Email" required>
-            <!-- <div class="invalid-feedback">
-            Please provide a valid quantity. -->
+             <div class="invalid-feedback">
+            Please provide a valid quantity. 
             <label for="validationCustom06">Quantity</label>
             <input type="text" class="form-control" id="validationCustom06" placeholder="Adress" required>
           </div>
@@ -84,8 +86,7 @@
             </div>
         </div>
       </form>
-
-
+    -->
 <!-- Button trigger modal -->
 <button type="button" class="btn-order-modal" data-bs-toggle="modal" data-bs-target="#orderModal">
   Create an order
@@ -100,7 +101,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <label> Customer ID</label>
+        <form class="needs-validation" novalidate>
+          <div class="order-form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationCustom02">Customer ID</label>
+              <input type="text" class="form-control" id="validationCustom02" placeholder="Customer ID">
+                <label for="exampleFormControlTextarea1" id = "cdescription">Order Notes</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows = "4"></textarea>
+              </div>
+          </div>
+        </form>
+        
+        <label></label>
+        
 
       </div>
       <div class="modal-footer">
@@ -150,16 +163,11 @@
             </tbody>
           </table>
         </div>
+        
 
 
 
-    <script>
-	var timestamp = Date.now(); 
-	var d = new Date(timestamp); console.log(d);
-	var t = document.getElementById("validationCustom04");
-	t.placeholder = d;
 
-	</script>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
