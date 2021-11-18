@@ -12,6 +12,18 @@ $(document).ready(function () {
       table.draw();
     });
     orderTable = table;
+
+    // When clicking on the table launch the modal 
+    $("#ordersTable").on("click" , (e) => {
+        console.log("clicked");
+        var myModal = new bootstrap.Modal(document.getElementById('orderModal'), {
+            keyboard: false
+          })
+        myModal.show();
+        console.log($(e.target)
+        .closest("tr")
+        .children().html())
+    })
   });
 
 function generateOrders(orders , table){
