@@ -152,7 +152,7 @@ h5{
       justify-content: flex-end;
   }
 
-  .submit-button, .reset-button, .add_button, .learnMore{
+  .submit-button, .reset-button, .add_button, .learnMore, .btn-order-modal{
     cursor: pointer;
     border-radius: 5em;
     padding-left: 40px;
@@ -187,7 +187,7 @@ h5{
   }
   .submit-button:hover, .reset-button:hover, 
   #search-button:hover, #validationImage:hover, 
-  .add_button:hover, .learnMore:hover{
+  .add_button:hover, .learnMore:hover, .btn-order-modal:hover{
     background: hsl(40, 68%, 94%);
     color: #000000;
     border: 2px solid black;

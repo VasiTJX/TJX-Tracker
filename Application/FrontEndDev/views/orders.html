@@ -44,56 +44,6 @@
         </nav>
       </div>
 
-
-      <!-- <form>
-        <div = class ="p-1">
-          <div class = "form-row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="First Name" id="firstName">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Middle Name" id="middleName">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Last Name" id="lastName">
-            </div>
-          </div>
-        </div>
-      </form>
-  
-      <form>
-        <div class = "p-1">
-          <div class="form-row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Phone" id="phone">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Email" id="email">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Address" id="adress">
-            </div>
-          </div>
-        </div>
-      </form>
-  
-      <form>
-        <div class = "p-1">
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" placeholder="Customer Notes" id="notes">
-            </div>
-          </div>
-        </div>
-      </form>
-
-      <div class="d-flex flex-column align-items-end">
-        <div class = "buttons">
-          <button class="submit-button" type="submit">Submit</button>
-          <button class="reset-button" type="reset">Reset</button>
-        </div>
-      </div> -->
-
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">Order Information</h1>
@@ -134,7 +84,30 @@
       </form>
 
 
+<!-- Button trigger modal -->
+<button type="button" class="btn-order-modal" data-bs-toggle="modal" data-bs-target="#orderModal">
+  Create an order
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Product Order Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label> Customer ID</label>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="order-button">Add Order</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
