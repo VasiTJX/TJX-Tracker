@@ -257,12 +257,28 @@ function generateProducts(products) {
   return picture;
 }
 
-function dropdownmenuSet(val) {
-  if (val.innerHTML != "") {
-    $("#dropdownMenuButton1").val(val.innerHTML);
-    $("#dropdownMenuButton1").html(val.innerHTML);
-  } else {
-    $("#dropdownMenuButton1").val("");
-    $("#dropdownMenuButton1").html("Search using:");
-  }
+
+document.getElementById("order-now").addEventListener("click", function() {
+        let item = document. createElement("li");
+         item.classList.add("list-group-item");
+         let quantity = document.getElementById("orderA").value;
+         let productID = document.getElementById("productSearch").value;
+         item.insertAdjacentHTML('beforeend', `
+         <strong>Product ID: ${productID}</strong>
+         <strong> Quantity Purchased: ${quantity}</strong>
+          `);
+          //document.getElementById("order-button").setAttribute("data-bs-dismiss", "modal");
+          document.getElementById("listing-order").appendChild(item);
+});
+
+  
+
+function dropdownmenuSet(val){
+	if(val.innerHTML!=""){
+		$('#dropdownMenuButton1').val(val.innerHTML);
+		$('#dropdownMenuButton1').html(val.innerHTML);
+	} else {
+		$('#dropdownMenuButton1').val('');
+		$('#dropdownMenuButton1').html('Search using:');
+	}
 }
