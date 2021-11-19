@@ -383,7 +383,7 @@ router
 			return new Promise((resolve, reject) => {
 				db.query(
 					`SELECT 
-					o.order_id, o.order_notes, o.datetime_order_placed,
+					o.order_id, o.order_notes, o.datetime_order_placed, o.total_order_price,
 					od.quantity_purchased, od.detail_id,
 					os.status_desc, os.status_id,
 					c.customer_id, c.first_name, c.middle_name, c.last_name, c.phone_country_code, c.phone,email, c.customer_notes, c.street, c.city, c.zip_code, c.country,
@@ -504,13 +504,19 @@ router
 			})
 		}
 
+		let rollBackHeader = (databaseOrder) => {
+			return new Promise((resolve, reject) => {
+				if (orderUpdatesFromClient.status_id < databaseOrder.status_id){
+					return reject ("Can't Roll Back Status")
+				} else {
+					return resolve()
+				}
+			})
+		}
 
 		try {
 		let databaseOrder = await databaseOrderCall(order_id)
-
-		if (orderUpdatesFromClient.status_id < databaseOrder.status_id){
-			res.status(400).send("Can't Roll Back Status")
-		}
+		await rollBackHeader(databaseOrder)
 		const promises = [];
 		// if database status is draft, you can only increase status or the order notes
 		if (databaseOrder.status_id <= 4) {
