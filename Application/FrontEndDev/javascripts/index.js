@@ -36,9 +36,13 @@ $(".submit").on("click" , () =>
     axios.post(`${url}`, { email: `${username}`, rep_password: `${password}` }) .then(function (response) { 
         console.log(response.data); 
         window.localStorage.setItem('sessionToken', response.data.sessionToken);
+        if (response.data.sessionToken){
+            window.location.href = ("../views/customers.html");
+        }
     }) 
         .catch(function (error) { 
             console.log(error); 
+            window.alert("Wrong credentials. Please try again!");
         });
 
             /*
@@ -51,7 +55,7 @@ for (i =0; i < userdb.length; i++){
     console.log(i);
     if (username == userdb[i].username && password == userdb[i].password){
         console.log(username, password);        
-        window.location.href = ("../views/customers.html");
+        
         console.log("Redirect");
 }   if (i == userdb.length-1){
     alert("You have entered the wrong username or password");
