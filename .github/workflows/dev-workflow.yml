@@ -2,12 +2,12 @@ name: Build and Deploy node Express app to azure
 on:
   push:
     branches:
-      - Develop-fix-fix
+      - Develop
 
 env:
   AZURE_WEBAPP_NAME: "tjx-tracker-dev"    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: "Application"      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '8.11.1'                        # set this to the node version to use
+  NODE_VERSION: '10.14.1'                        # set this to the node version to use
   RESOURCEGROUPNAME: "tjx-tracker-rg"
   LOCATION: "East US"
   HOSTINGPLANNAME: "TJX-Tracker-Dev-plan"
@@ -126,25 +126,25 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-  # Job to run functional tests
-  FunctionalTests:
-    name: Run Functional tests
-    runs-on: windows-latest
-    needs: Deploy
-    steps:
-    - uses: actions/checkout@v2
+  # # Job to run functional tests
+  # FunctionalTests:
+  #   name: Run Functional tests
+  #   runs-on: windows-latest
+  #   needs: Deploy
+  #   steps:
+  #   - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ env.NODE_VERSION }}
+  #   - name: Use Node.js ${{ env.NODE_VERSION }}
+  #     uses: actions/setup-node@v1
+  #     with:
+  #       node-version: ${{ env.NODE_VERSION }}
 
-    # Run functional tests
-    - name: Run Functional Tests
-      continue-on-error: false
-      run: |
-        cd Application
-        npm install
-        cd ../Tests
-        npm install
-        gulp functionaltest --webAppUrl https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/
+  #   # Run functional tests
+  #   - name: Run Functional Tests
+  #     continue-on-error: false
+  #     run: |
+  #       cd Application
+  #       npm install
+  #       cd ../Tests
+  #       npm install
+  #       gulp functionaltest --webAppUrl https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/
