@@ -91,6 +91,8 @@
             </div>
             <div class="col-md-4 mb-3">
               <label for="validationCustom02">Order Details</label>
+              <ul class="list-group" id ="listing-order">
+              </ul>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="exampleFormControlTextarea1" id = "cdescription">Order Notes</label>
@@ -121,12 +123,6 @@
               <li>
                 <a class="dropdown-item" onclick = "dropdownmenuSet(this)">Product ID</a>
               </li>
-              <li>
-                <a class="dropdown-item" onclick = "dropdownmenuSet(this)">SKU Number</a>
-              </li>
-              <li>
-                <a class="dropdown-item" onclick = "dropdownmenuSet(this)">Product Name</a>
-              </li>
             </ul>
             <input type="text" id = "productSearch" class="form-control" 
             aria-label="Text input with segmented dropdown button">
@@ -143,7 +139,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="order-button">Add to Order</button>
+        <button type="button" class="order-button" id = "order-now">Add to Order</button>
       </div>
     </div>
   </div>

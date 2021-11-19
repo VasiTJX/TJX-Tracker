@@ -232,6 +232,20 @@ function generateProducts(products){
 }
 
 
+document.getElementById("order-now").addEventListener("click", function() {
+        let item = document. createElement("li");
+         item.classList.add("list-group-item");
+         let quantity = document.getElementById("orderA").value;
+         let productID = document.getElementById("productSearch").value;
+         item.insertAdjacentHTML('beforeend', `
+         <strong>Product ID: ${productID}</strong>
+         <strong> Quantity Purchased: ${quantity}</strong>
+          `);
+          //document.getElementById("order-button").setAttribute("data-bs-dismiss", "modal");
+          document.getElementById("listing-order").appendChild(item);
+});
+
+  
 
 function dropdownmenuSet(val){
 	if(val.innerHTML!=""){
