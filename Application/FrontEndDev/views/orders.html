@@ -75,112 +75,75 @@
             <p class="lead">Search and modify existing orders.</p>
           </div>
         </div>
-        <h2><strong>Order #1234</strong></h2>
+
+        <h2><strong>Add Orders</strong></h2>
 
         <form class="needs-validation" novalidate>
           <div class="form-row">
             <div class="col-md-4 mb-3">
-              <label for="validationCustom01">Order ID</label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustom01"
-                placeholder="Order ID"
-                required
-              />
               <label for="validationCustom02">Customer ID</label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustom02"
-                placeholder="Customer ID"
-              />
-              <label for="validationCustom03">Order Status Code</label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustom03"
-                placeholder="Order Status Code"
-                required
-              />
+              <input type="text" class="form-control" id="validationCustom02" placeholder="Customer ID">
+              <label> Order Items</label><br>
+              <button type="button" class="btn-order-modal" data-bs-toggle="modal" data-bs-target="#orderModal">
+               Add Items
+              </button>
+              <button class="reset-button" id = "reset-order-button" type="reset">Reset Items</button>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="validationCustom04">Time</label>
-              <input
-                type="number"
-                class="form-control"
-                id="validationCustom04"
-                placeholder="Time"
-                required
-              />
-              <label for="validationCustom05">Order Price</label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustom05"
-                placeholder="Email"
-                required
-              />
-              <!-- <div class="invalid-feedback">
-            Please provide a valid quantity. -->
-              <label for="validationCustom06">Quantity</label>
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustom06"
-                placeholder="Adress"
-                required
-              />
+              <label for="validationCustom02">Order Details</label>
             </div>
             <div class="col-md-4 mb-3">
-              <label for="exampleFormControlTextarea1" id="cdescription"
-                >Order Notes</label
-              >
-              <textarea
-                class="form-control"
-                id="exampleFormControlTextarea1"
-                rows="8"
-              ></textarea>
+                <label for="exampleFormControlTextarea1" id = "cdescription">Order Notes</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows = "5"></textarea>
             </div>
-            <div class="buttons">
-              <button class="submit-button" type="submit">Submit</button>
-              <button class="reset-button" type="reset">Reset</button>
-            </div>
+          </div>
+        </form>
+        <div class = "buttons">
+          <button class="submit-button" type="submit">Submit</button>
+          <button class="reset-button" type="reset">Reset</button>
         </div>
-      </form>
-    -->
-<!-- Button trigger modal -->
-<button type="button" class="btn-order-modal" data-bs-toggle="modal" data-bs-target="#orderModal">
-  Create an order
-</button>
 
-<!-- Modal -->
 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Product Order Form</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="needs-validation" novalidate>
-          <div class="order-form-row">
-            <div class="col-md-4 mb-3">
-              <label for="validationCustom02">Customer ID</label>
-              <input type="text" class="form-control" id="validationCustom02" placeholder="Customer ID">
-                <label for="exampleFormControlTextarea1" id = "cdescription">Order Notes</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows = "4"></textarea>
-              </div>
-          </div>
-        </form>
-        
-        <label></label>
-        
+      <div class="modal-body" id = "modal-order-body">
+
+        <div class="input-group mb-3">
+          <button class="btn btn-secondary dropdown-toggle" type="button" 
+          id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="true">
+            Search using:
+          </button>
+            <ul class="dropdown-menu" role = "menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" onclick = "dropdownmenuSet(this)">Product ID</a>
+              </li>
+              <li>
+                <a class="dropdown-item" onclick = "dropdownmenuSet(this)">SKU Number</a>
+              </li>
+              <li>
+                <a class="dropdown-item" onclick = "dropdownmenuSet(this)">Product Name</a>
+              </li>
+            </ul>
+            <input type="text" id = "productSearch" class="form-control" 
+            aria-label="Text input with segmented dropdown button">
+            <button type="button" class="btn btn-warning" id = "search-order-button">
+              <strong>Search</strong>
+            </button>
+            </div>
+
+            <section class = "product_portfolio" id = "catalogue">
+              <div class="zone blue grid-wrapper"></div>
+              
+            </section>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="close-button" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="order-button">Add Order</button>
+        <button type="button" class="order-button">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -255,15 +218,15 @@
         <!-- Modal -->
         <div
           class="modal fade"
-          id="orderModal"
+          id="orderTableModal"
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby="orderTableModal"
           aria-hidden="true"
         >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="orderTableModal">Modal title</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -287,15 +250,6 @@
             </div>
           </div>
         </div>
-
-        <script>
-          var timestamp = Date.now();
-          var d = new Date(timestamp);
-          console.log(d);
-          var t = document.getElementById("validationCustom04");
-          t.placeholder = d;
-        </script>
-      </main>
 
 
   </main>

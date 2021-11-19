@@ -157,7 +157,7 @@ h5{
     display: flex;
   }
 
-  .submit-button, .reset-button, .add_button, .learnMore, .btn-order-modal{
+  .submit-button, .reset-button, .add_button, .learnMore, .btn-order-modal, .off-canvas-order{
     cursor: pointer;
     border-radius: 5em;
     padding-left: 40px;
@@ -192,7 +192,7 @@ h5{
   }
   .submit-button:hover, .reset-button:hover, 
   #search-button:hover, #validationImage:hover, 
-  .add_button:hover, .learnMore:hover, .btn-order-modal:hover{
+  .add_button:hover, .learnMore:hover, .btn-order-modal:hover, #search-order-button:hover,.off-canvas-order:hover{
     background: hsl(40, 68%, 94%);
     color: #000000;
     border: 2px solid black;
@@ -206,7 +206,7 @@ h5{
 #pAmount, #order-customer, #orderModalTextArea {
     margin-left: 10px;
 }
-#search-button, #validationImage {
+#search-button, #validationImage, #search-order-button {
     background: #9B0C23;
     color: white;
     font-family: 'Ubuntu', sans-serif;
