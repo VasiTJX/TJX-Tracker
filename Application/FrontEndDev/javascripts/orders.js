@@ -18,11 +18,116 @@ $(document).ready(function () {
         console.log("clicked");
         var myModal = new bootstrap.Modal(document.getElementById('orderTableModal'), {
             keyboard: false
-          })
-        myModal.show();
+          });
+        
+        $("#orderTableModal").on("hidden.bs.modal" , () => {
+            $("#orderTitleModal").text("");
+            $("#rowBody").empty();
+        });
         console.log($(e.target)
         .closest("tr")
         .children().html())
+
+        let orderId = $(e.target)
+        .closest("tr")
+        .children().html();
+
+
+        let newUrl = url + "/" + orderId;
+        let oldOrderStatus = null;
+        axios.get(newUrl).then(({data}) => {
+            console.log(data);
+            let orderDetails = data[0];
+            let customerDetails = orderDetails.customer_detail;
+            let productsDetails = orderDetails.order_detail;
+            oldOrderStatus = orderDetails.status_desc;
+            let title = "Order nr." + orderDetails.order_id + ":" + orderDetails.status_desc;
+            $("#orderTitleModal").text(title);
+            let $div1 = $("<div>" , {id:"firstDiv","class": "col-md-4 mb-3"});
+            let $h5 = $("<h5>" , {text:"Customer details"});
+            $div1.append($h5);
+            $div1.append(`<p><strong>First Name : </strong> ${customerDetails.first_name} </p>`);
+            if (customerDetails.midlle_name){
+            $div1.append(`<p><strong>Midlle Name : </strong> ${customerDetails.midlle_name} </p>`);
+            }
+            else{
+                $div1.append(`<p><strong>Last Name : </strong> </p>`);
+            }
+            $div1.append(`<p><strong>Last Name : </strong> ${customerDetails.last_name} </p>`);
+            $div1.append(`<p class="text-wrap"><strong>Email : </strong> ${customerDetails.email} </p>`);
+            $div1.append(`<p><strong>Phone : </strong> ${customerDetails.phone} </p>`);
+            $("#rowBody").append($div1);
+
+            let $div2 = $("<div>" , {id:"secondDiv","class": "col-md-4 mb-3"});
+            $h5 = $("<h5>" , {text:"Order details"});
+            $div2.append($h5);
+            let counter = 1;
+            productsDetails.map((product) => {
+                $div2.append(`<p><strong>Product nr: ${counter} </p>`)
+                $div2.append(`<p><strong>Product SKU : </strong> ${product.product_sku} </p>`)
+                $div2.append(`<p><strong>Name : </strong> ${product.product_name} </p>`)
+                $div2.append(`<p><strong>Quantity purchased : </strong> ${product.quantity_purchased} </p>`)
+                counter +=1;
+            });
+            $("#rowBody").append($div2);
+
+            let $div3 = $("<div>" , {id:"thirdDiv","class": "col-md-4 mb-3"});
+            $h5 = $("<h5>" , {text:"Adittional details"});
+            $div3.append($h5);
+            let date = new Date(orderDetails.datetime_order_placed);
+            $div3.append(`<p><strong> Time placed :</strong> ${date.toDateString()} </p>`)
+            $div3.append(`<p><strong> Notes :</strong> ${orderDetails.order_notes} </p>`)
+            let pStatus = $("<p>" , {text:"Status"});
+            let select = $("<select>", {"class":"form-select", id:"selectId"});
+            select.append(`
+            <option value="1">Draft</option>
+            <option value="2">Open</option>
+            <option value="3">Preparing to ship</option>
+            <option value="4">Ready for shiping</option>
+            <option value="5">Shipped</option>
+            <option value="6">Delivered</option>
+            <option value="7">Closed</option>`)
+
+            switch(orderDetails.status_desc){
+                case "Draft":
+                    select.val(1);
+                    break;
+                case "Open":
+                    select.val(2);
+                    break;
+                case "Preparing to ship":
+                    select.val(3);
+                    break;
+                case "Ready for shiping":
+                    select.val(4);
+                    break;
+                case "Shipped":
+                    select.val(5);
+                    break;
+                case "Delivered":
+                    select.val(6);
+                    break;
+                case "Closed":
+                    select.val(7);
+                    break;
+            }
+            pStatus.append(select);
+            $div3.append(pStatus);
+
+            $("#rowBody").append($div3);
+
+        });
+        myModal.show();
+        $("#changeOrder").on("click", () => {
+            let newVal = $("#selectId").find(":selected").text();
+            console.log("Old is :" + oldOrderStatus + "new is :" + newVal);
+            if ( oldOrderStatus !== newVal){
+                // Send a put with the change of order 
+            }
+            else {
+                // just close the modal
+            }
+        });
     })
   });
 

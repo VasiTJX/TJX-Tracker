@@ -223,10 +223,10 @@
           aria-labelledby="orderTableModal"
           aria-hidden="true"
         >
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="orderTableModal">Modal title</h5>
+                <h5 class="modal-title" id="orderTitleModal">Modal title</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -234,16 +234,20 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">...</div>
+              <div class="modal-body">
+                <div class="form-row" id="rowBody">
+
+                </div>
+              </div>
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="close-button"
                   data-bs-dismiss="modal"
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="order-button" id="changeOrder">
                   Save changes
                 </button>
               </div>
