@@ -17,12 +17,6 @@ $(document).ready(function () {
   customerTable = table;
 });
 
-// axios.get(url).then(({ data }) => {
-//   let customerRows = generateRows(data);
-//   console.log(customerRows);
-//   document.getElementById("tableBody").replaceChildren(...customerRows);
-// });
-
 function dropdownmenuSet(val) {
   if (val.innerHTML != "") {
     $("#dropdownMenuButton1").val(val.innerHTML);
@@ -49,22 +43,6 @@ function generateRows(customers, table) {
       customer.zip_code +
       ";" +
       customer.country;
-    // let row = document.createElement("tr");
-    // row.insertAdjacentHTML(
-    //   "beforeend",
-    //   `
-    //   <td>${customer.customer_id}</td>
-    //   <td>${customer.first_name}</td>
-    //   <td>${customer.middle_name}</td>
-    //   <td>${customer.last_name}</td>
-    //   <td class="prefix">${customer.phone_country_code}</td>
-    //   <td>${customer.phone}</td>
-    //   <td>${customer.email}</td>
-    //   <td class="ellipsis">${customer.customer_notes}</td>
-    //   <td class="ellipsis">${adress}</td>
-    //   `
-    // );
-    // return row;
     table.row.add([
       customer.customer_id,
       customer.first_name,
