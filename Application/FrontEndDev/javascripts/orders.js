@@ -272,7 +272,9 @@ document.getElementById("order-now").addEventListener("click", function() {
 });
 
   
-
+document.getElementById("order-submit").addEventListener("click", function(){
+  
+})
 function dropdownmenuSet(val){
 	if(val.innerHTML!=""){
 		$('#dropdownMenuButton1').val(val.innerHTML);
